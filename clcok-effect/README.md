@@ -1,8 +1,16 @@
-# Clock-Effect:
+# Clock-Effect
 
 使用 `HTML` + `CSS`/`CSS3` + `JavaScript`制作，部分数据绑定使用了 `Vue.js`
 
 # Preview
+
+项目在线预览:
+
+> [https://catsjuice.cn/clock](https://catsjuice.cn/clock)
+
+或者
+
+> [49.234.203.208](49.234.203.208)
 
 ## 背景自适应窗口
 
