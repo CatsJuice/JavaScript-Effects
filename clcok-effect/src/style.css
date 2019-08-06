@@ -1,0 +1,238 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.bg {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.lunbo {
+    width: auto;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    transition: all 0.6s ease-in-out;
+}
+
+.lunbo .lunbo-item {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-size: cover;
+    background-position: center;
+}
+
+.lunbo .lunbo-item>img.width-fix {
+    width: 100vw;
+    height: auto;
+}
+.lunbo .lunbo-item>img.height-fix {
+    width: auto;
+    height: 100vh;
+}
+
+.dots {
+    position: fixed;
+    padding: 40px 20px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* background: yellow; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.current_dot {
+    background: rgba(255, 255, 255, 0.5);
+}
+.normal_dot {
+    background-color: rgba(255, 255, 255, .2);
+}
+.dots .dot {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    margin: 0 2px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+.dots .dot:hover {
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+
+#app {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#main-container {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    width: 80vw;
+    height: 50vh;
+    /* background: yellow; */
+    position: absolute;
+    /* background: rgb(37, 52, 119); */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+}
+.words{
+    position: absolute;
+    bottom: 50px;
+    font-family: sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 100;
+    text-align: center;
+    transition: all 0.8s ease-in-out;
+}
+
+.mobile-card {
+    width: 40px;
+    height: 70px;
+    flex-shrink: 0;
+    margin: 0 2px;
+    line-height: 70px;
+}
+.pc-card{
+    width: 90px;
+    margin: 0 5px;
+    height: 140px;
+    line-height: 140px;
+}
+.mobile-card .time {
+    font-size: 3rem;
+}
+.pc-card .time {
+    font-size: 5rem;
+}
+
+
+#main-container .card {
+    cursor: pointer;
+    /* background-color: rgb(40, 40, 40); */
+    /* box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6); */
+    position: relative;
+    /* overflow: hidden; */
+}
+
+#main-container .card>.card-bg {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+    background-color: rgb(40, 40, 40);
+}
+
+#main-container .time {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    text-align: center;
+    color: antiquewhite;
+    font-weight: 100;
+    font-family: sans-serif;
+    transition: all 0.2s ease;
+}
+
+#main-container .line {
+    width: 90%;
+    height: 4px;
+    background: rgb(40, 40, 40);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease;
+}
+
+#main-container .pc-card:hover .card-bg {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, .6);
+    transition: all 0.2s ease;
+}
+
+#main-container .pc-card:hover .time {
+    line-height: 120px;
+}
+
+#main-container .pc-card:hover .line {
+    margin-top: -10px;
+    transition: all 0.2s ease;
+}
+
+.devide {
+    padding: 0 5px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.devide>span {
+    display: block;
+    border-radius: 50%;
+    
+    background-color: rgb(58, 58, 58);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, .7);
+}
+.pc-card + .devide>span {
+    width: 12px;
+    height: 12px;
+    margin: 5px 0;
+}
+.mobile-card + .devide>span {
+    width: 6px;
+    height: 6px;
+    margin: 3px 0;
+}
+
+.active {
+    animation: trans 0.4s ease 0s 1 normal;
+}
+
+.active+.time {
+    animation: trans-time 0.8s ease 0s 1 normal;
+}
+
+@keyframes trans {
+    0% {
+        transform: rotateX(0deg)
+    }
+    100% {
+        transform: rotateX(180deg)
+    }
+}
+
+@keyframes trans-time {
+    0% {
+        transform: rotateX(0deg)
+    }
+    50% {
+        transform: rotateX(180deg)
+    }
+    100% {
+        transform: rotateX(0deg)
+    }
+}
