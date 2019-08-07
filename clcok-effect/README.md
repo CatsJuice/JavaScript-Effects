@@ -21,3 +21,12 @@
 
 ## 移动端自适应及滑动
 ![移动端自适应及滑动](https://github.com/CatsJuice/JavaScript-Effects/blob/master/clcok-effect/gif-preview/mobile.gif)
+
+## 设置界面
+![设置界面](https://github.com/CatsJuice/JavaScript-Effects/blob/master/clcok-effect/gif-preview/setting.gif)
+
+## 添加图片
+![添加图片](https://github.com/CatsJuice/JavaScript-Effects/blob/master/clcok-effect/gif-preview/add_img.gif)
+
+## 移动端设置
+![移动端添加图片](https://github.com/CatsJuice/JavaScript-Effects/blob/master/clcok-effect/gif-preview/mobile_setting.gif)
