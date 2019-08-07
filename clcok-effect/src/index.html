@@ -186,9 +186,28 @@
                     offset = this.touchMove_X - this.touchStart_X;
                     if (Math.abs(offset / this.screenWidth) > 0.2) {
                         if (offset > 0) {
-                            this.current_lunbo = this.current_lunbo - 1 < 0 ? 0 : this.current_lunbo - 1;
+                            // this.current_lunbo = this.current_lunbo - 1 < 0 ? 0 : this.current_lunbo - 1;
+                            let i = 0
+                            this.lunbo.forEach((item, index) => {
+                                if (this.current_lunbo == item.id) {
+                                    if (index - 1 > 0) i = index - 1
+                                    return false
+                                }
+                            });
+                            this.current_lunbo = this.lunbo[i]['id']
                         } else if (offset < 0) {
-                            this.current_lunbo = this.current_lunbo + 1 > this.lunbo.length - 1 ? this.lunbo.length - 1 : this.current_lunbo + 1;
+                            let i = this.lunbo.length - 1
+                            this.lunbo.forEach((item, index) => {
+                                if (this.current_lunbo == item.id) {
+                                    if (index + 1 < this.lunbo.length){
+                                        i = index + 1;
+                                    }
+                                    return false
+                                }
+                            });
+                            this.current_lunbo = this.lunbo[i]['id']
+
+                            // console.log(this.current_lunbo)
                         }
                     }
                     // this.move_x = 0
@@ -243,24 +262,24 @@
                             let url = res.body.file_path;
                             lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img'));
                             new_item = {
-                                id: `${Date.now()}_${Math.ceil(Math.random()*1000)}`,
+                                id: `${Date.now()}_${Math.ceil(Math.random() * 1000)}`,
                                 src: url
                             }
                             lunbo.push(new_item);
                             localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(lunbo));
-                            
-                            if (res.body.status === 0){
+
+                            if (res.body.status === 0) {
                                 // window.alert('上传成功');
                                 // setTimeout( () => { this.updateLunboImg()}, 2000);
                                 this.updateLunboImg();
                             } else {
                                 window.alert('上传失败');
                             }
-                            
+
                         }, function (res) {
                             console.log(res.status);
                         });
-                        
+
                     // lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img'));
                     // new_item = {
                     //     id: `${Date.now()}_${Math.random}`,
@@ -353,9 +372,9 @@
                 show_setting(flag) {
                     if (flag) {
                         this.$refs.main.style.top = '30vh'
-                        window. removeEventListener('touchstart', this.handleTouchStart);
-                        window. removeEventListener('touchmove', this.handleTouchMove);
-                        window. removeEventListener('touchend', this.handleTouchtouchend);
+                        window.removeEventListener('touchstart', this.handleTouchStart);
+                        window.removeEventListener('touchmove', this.handleTouchMove);
+                        window.removeEventListener('touchend', this.handleTouchtouchend);
                     }
                     else {
                         this.$refs.main.style.top = '50vh'
