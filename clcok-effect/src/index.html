@@ -3,31 +3,34 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CatsJuice</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="setting.css">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./vue-resource.min.js"></script>
+
 </head>
 
 <body>
     <div id="app">
         <div class="bg">
-            <div class="lunbo" :style="{'left': left+'vw', 'transform':'translateX('+move_x+'px)'}">
+            <div ref='lunbo' class="lunbo" :style="{'left': left+'vw', 'transform':'translateX('+move_x+'px)'}">
                 <div class="lunbo-item" v-for="img in lunbo" :key="img.id"
                     :style="{ 'background-image': 'url('+img.src+')' }">
                 </div>
             </div>
+        </div>
 
-            <div class="dots">
-                <div :class="['dot', item.id==current_lunbo?'current_dot':'normal_dot']" v-for="item in lunbo"
-                    :key="item.id" @click="switch_bg(item.id)">
-
-                </div>
+        <div class="dots">
+            <div :class="['dot', item.id==current_lunbo?'current_dot':'normal_dot']" v-for="item in lunbo"
+                :key="item.id" @click="switch_bg(item.id)">
             </div>
         </div>
 
-        <div id="main-container">
+        <div id="main-container" ref='main'>
             <div :class="['card', is_mobile ? 'mobile-card' : 'pc-card']">
                 <div :class="['card-bg', style_h1]"></div>
                 <div :class="['time']">{{ h1 }}</div>
@@ -72,6 +75,41 @@
                 <p>&copy;CatsJuice</p>
             </div>
         </div>
+
+        <div ref="setting" :class="['setting', show_setting?'setting-active':'']">
+            <div class="empty"></div>
+            <div class="card">
+                <div class="close-btn" @click='switch_setting'>
+                    <img src="./img//icon/close.png" alt="">
+                </div>
+
+                <div class="list">
+                    <div v-for='item in lunbo' class="list-item" :key='item.id'
+                        :style="{ 'background-image': 'url('+item.src+')' }">
+                        <div class="delete-btn" @click='delete_img(item.id)'>
+                            <!-- <img src="./img/icon/delete.png"> -->
+                        </div>
+                    </div>
+                    <div class="list-item" @click='click_select_file'
+                        style="margin-right: 160px; background-color: rgb(228, 228, 228); box-shadow: 0 0 10px rgba(0,0,0,.2)">
+                        <input ref='file_select' type="file" name="file" accept="image/png,image/jpg,image/jpeg"
+                            id="file" @change="add_img" style="display:none;" />
+                        <div class="add-btn">
+                            <img src="./img/icon/add.png" alt="">
+                        </div>
+                    </div>
+                    <!-- <div style="width: 160px; height: 100%; background: black;"></div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="setting-btn" @click='switch_setting'>
+            <img src="./img/icon/setting.png" alt="">
+        </div>
+
+        <!-- <div class="show_msg animate">
+            {{ msg }}
+        </div> -->
     </div>
 
     <script>
@@ -98,44 +136,43 @@
 
                 interval: null,
 
-                lunbo: [
-                    { id: 0, src: "./img/a.jpg" },
-                    { id: 1, src: "./img/b.jpg" },
-                    { id: 2, src: "./img/c.jpg" },
-                    { id: 3, src: "./img/d.jpg" }
-                ],
+                lunbo: [],
                 current_lunbo: 0,
-                left: "",
+                left: 0,
                 temp_left: "",
                 is_mobile: '',
                 words_color: "#fff",
 
                 // 触摸
-                touchStart_X: 0,
-                touchMove_X: 0,
-                touchEnd_X: 0,
+                touchStart_X: undefined,
+                touchMove_X: undefined,
+                touchEnd_X: undefined,
                 screenWidth: 0,
-                move_x: 0
+                move_x: 0,
+
+                // 设置
+                show_setting: false,
+                file: '',
             },
             methods: {
                 switch_bg(id) {
                     // console.log(id);
                     this.current_lunbo = id;
-                    this.move_x = 0;
-                    if (id == 0 || id == 1 || id == 3)
-                        this.words_color = "#fff"
-                    else
-                        this.words_color = "#000"
+                    // this.move_x = 0;
+                    // if (id == 0 || id == 1 || id == 3)
+                    //     this.words_color = "#fff"
+                    // else
+                    //     this.words_color = "#000"
                 },
-
                 handleTouchStart(e) {
                     // e.preventDefault();
-                    // console.log(e.touches[0].clientX);
+                    // console.log(`TOUCH_START: ${e.touches[0].clientX}`);
                     this.touchStart_X = e.touches[0].clientX;
                     this.temp_left = this.left
                 },
                 handleTouchMove(e) {
                     // e.preventDefault();
+                    // console.log(`TOUCH_MOVE: ${e.touches[0].clientX}`);
                     this.touchMove_X = e.touches[0].clientX;
                     offset = this.touchMove_X - this.touchStart_X;
 
@@ -145,6 +182,7 @@
 
                 },
                 handleTouchtouchend(e) {
+                    // console.log(`TOUCH_END: ${this.touchMove_X}`);
                     offset = this.touchMove_X - this.touchStart_X;
                     if (Math.abs(offset / this.screenWidth) > 0.2) {
                         if (offset > 0) {
@@ -155,8 +193,83 @@
                     }
                     // this.move_x = 0
                     document.querySelector('.lunbo').style.transform = `translateX(0px)`;
-                }
+                },
+                updateLunboImg() {
+                    init_data = [
+                        { id: 0, src: "./img/a.jpg" },
+                        { id: 1, src: "./img/b.jpg" },
+                        { id: 2, src: "./img/c.jpg" },
+                        { id: 3, src: "./img/d.jpg" }
+                    ]
+                    // this.lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img') || init_data);
+                    if (localStorage.getItem('catsjuice_lunbo_img') && JSON.parse(localStorage.getItem('catsjuice_lunbo_img')).length > 0) {
+                        // console.log(localStorage.getItem('catsjuice_lunbo_img'))
+                        this.lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img'));
 
+                    } else {
+                        localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(init_data));
+                        this.updateLunboImg();
+                    }
+                },
+                switch_setting() {
+                    this.show_setting = !this.show_setting
+                },
+                delete_img(id) {
+                    localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(
+                        JSON.parse(localStorage.getItem('catsjuice_lunbo_img') || '[]').filter(item => item.id != id)
+                    ));
+                    this.updateLunboImg();
+                },
+                click_select_file() {
+                    this.$refs.file_select.click();
+                },
+                add_img(event) {
+                    // console.log(this.file)
+                    // this.updateLunboImg();
+                    this.file = event.target.files[0];
+                    // console.log(this.file)
+                    var formData = new FormData();
+                    formData.append('file', this.file);
+                    this.$http.post('https://catsjuice.cn/clock/api/upload.php', formData, {
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                    })
+                        .then(function (res) {
+                            // document.write(res.body);
+                            console.log(res.body)
+                            if (res.body.img_receiver_result == 1) {
+                                window.alert('上传失败, 文件可能过大');
+                                return
+                            }
+                            let url = res.body.file_path;
+                            lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img'));
+                            new_item = {
+                                id: `${Date.now()}_${Math.ceil(Math.random()*1000)}`,
+                                src: url
+                            }
+                            lunbo.push(new_item);
+                            localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(lunbo));
+                            
+                            if (res.body.status === 0){
+                                // window.alert('上传成功');
+                                // setTimeout( () => { this.updateLunboImg()}, 2000);
+                                this.updateLunboImg();
+                            } else {
+                                window.alert('上传失败');
+                            }
+                            
+                        }, function (res) {
+                            console.log(res.status);
+                        });
+                        
+                    // lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img'));
+                    // new_item = {
+                    //     id: `${Date.now()}_${Math.random}`,
+                    //     src: this.file
+                    // }
+                    // lunbo.push(new_item);
+                    // localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(lunbo));
+                    // this.updateLunboImg();
+                }
             },
             mounted() {
                 this.intervalL = setInterval(() => {
@@ -225,13 +338,34 @@
                         this.screenWidth = document.body.clientWidth
                     })()
                 }
-                this.screenWidth = document.body.clientWidth
+                this.screenWidth = document.body.clientWidth;
+                this.updateLunboImg();
             },
             watch: {
                 current_lunbo(id) {
-                    this.left = this.current_lunbo * 100 == 0 ? "0" : this.current_lunbo * -100;
+                    this.lunbo.forEach((item, index) => {
+                        if (item.id == id)
+                            this.left = index * -100
+                        // this.left = this.current_lunbo * 100 == 0 ? "0" : this.current_lunbo * -100;
+                    })
+
+                },
+                show_setting(flag) {
+                    if (flag) {
+                        this.$refs.main.style.top = '30vh'
+                        window. removeEventListener('touchstart', this.handleTouchStart);
+                        window. removeEventListener('touchmove', this.handleTouchMove);
+                        window. removeEventListener('touchend', this.handleTouchtouchend);
+                    }
+                    else {
+                        this.$refs.main.style.top = '50vh'
+                        window.addEventListener('touchstart', this.handleTouchStart, { passive: false });
+                        window.addEventListener('touchmove', this.handleTouchMove, { passive: false });
+                        window.addEventListener('touchend', this.handleTouchtouchend, { passive: false });
+
+                    }
                 }
-            },
+            }
         })
     </script>
 </body>

@@ -1,0 +1,173 @@
+.setting {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    width: 100vw;
+    height: 100vh;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    position: fixed;
+    /* -webkit-clip-path: circle(40px at right bottom); */
+    /* clip-path: circle(20px at 100% 100%); */
+    /* background-color: rgba(255, 255, 255, 1); */
+    z-index: -1;
+    transition: all 0.5s ease-in-out;
+    /* bottom: 0; */
+    /* background: yellow; */
+}
+
+.setting-active {
+    /* clip-path: circle(2500px at 90% 85%); */
+    /* box-shadow: 0 -3px 20px rgba(0, 0, 0, .7); */
+    /* background-color: #fff; */
+    /* transition: all 1s ease-in-out; */
+    z-index: 9;
+}
+
+.setting>.empty {
+    flex-grow: 1;
+}
+
+.setting>.card {
+    background: #fff;
+    flex-grow: 0;
+    height: 50vh;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .8);
+    clip-path: circle(20px at 110% 110%);
+    transition: all 0.6s ease-in-out;
+}
+
+.setting-active>.card {
+    clip-path: circle(100% at 50% 50%);
+    transition: all 0.6ss ease-in-out;
+    position: relative;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
+
+.card .close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.card .close-btn:hover {
+    background-color: aliceblue;
+}
+
+.card .close-btn>img {
+    width: 80%;
+    height: 80%;
+    margin-left: 50%;
+    margin-TOP: 50%;
+    transform: translate(-50%, -50%);
+    /* height: 100%; */
+}
+
+/* 列表 */
+
+.card .list {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    /* overflow-y: visible; */
+    border-radius: 20px;
+    /* padding-top: 10px; */
+    padding-right: 160px;
+}
+
+.card .list .list-item {
+    border-radius: 20px;
+    width: 160px;
+    height: 90%;
+    background-size: cover;
+    flex-shrink: 0;
+    margin: 0 10px;
+    margin-top: 20px;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: all 0.2s ease-in-out;
+
+}
+.card .list .list-item:hover {
+    margin-top: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.card .list .list-item .delete-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f6f6f6;
+    border: 5px solid #fff;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    
+    background-image: url(./img/icon/delete_dark.png);
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+.card .list .list-item .delete-btn:hover {
+    background-color: #AC2C32;
+    background-image: url(./img/icon/delete_light.png);
+    transition: all 0.2s ease-in-out;
+}
+
+.card .list .list-item .delete-btn>img {
+    width: 60%;
+    height: 60%;
+    margin-left: 20%;
+    margin-top: 20%;
+}
+
+.card .list .list-item .add-btn {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card .list .list-item .add-btn img {
+    width: 80%;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+/* 设置按钮 */
+.setting-btn {
+    position: fixed;
+    z-index: 5;
+    bottom: 35px;
+    right: 35px;
+    width: 20px;
+    height: 20px;
+    /* background: yellow; */
+}
+
+.setting-btn>img {
+    width: 100%;
+    height: 100%;
+    ;
+}
+
+.setting-btn:hover>img {
+    transform: rotate(120deg);
+    transition: all 0.5s ease-in-out;
+}
