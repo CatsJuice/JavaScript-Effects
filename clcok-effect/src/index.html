@@ -7,15 +7,18 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CatsJuice</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="setting.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/setting.css">
+    <link rel="stylesheet" href="./css/search.css">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="./vue-resource.min.js"></script>
+    <script src="./js/vue-resource.min.js"></script>
+
 
 </head>
 
 <body>
     <div id="app">
+        <!-- 背景 -->
         <div class="bg">
             <div ref='lunbo' class="lunbo" :style="{'left': left+'vw', 'transform':'translateX('+move_x+'px)'}">
                 <div class="lunbo-item" v-for="img in lunbo" :key="img.id"
@@ -24,12 +27,14 @@
             </div>
         </div>
 
+        <!-- 导航点 -->
         <div class="dots">
             <div :class="['dot', item.id==current_lunbo?'current_dot':'normal_dot']" v-for="item in lunbo"
                 :key="item.id" @click="switch_bg(item.id)">
             </div>
         </div>
 
+        <!-- 主视图 -->
         <div id="main-container" ref='main'>
             <div :class="['card', is_mobile ? 'mobile-card' : 'pc-card']">
                 <div :class="['card-bg', style_h1]"></div>
@@ -76,18 +81,41 @@
             </div>
         </div>
 
-        <div ref="setting" :class="['setting', show_setting?'setting-active':'']">
+        <!-- 搜索 -->
+        <div id="search-container">
+            <div @mouseover='search_hover' @mouseout='search_blur'
+                :class="['search', search_extend?'search-extend': '']">
+                <input ref='search_input' type="text" v-model="search_content" :placeholder="search_placeholder"
+                    @keyup.enter="do_search">
+                <div :class="['btn', search_extend?'btn-extend':'btn-normal']" @click='do_search'>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 设置 -->
+        <div ref="setting" :class="['setting', show_setting?'setting-active':'setting-hide']">
             <div class="empty"></div>
             <div class="card">
                 <div class="close-btn" @click='switch_setting'>
-                    <img src="./img//icon/close.png" alt="">
+                    <!-- <img src="" alt=""> -->
                 </div>
 
                 <div class="list">
                     <div v-for='item in lunbo' class="list-item" :key='item.id'
-                        :style="{ 'background-image': 'url('+item.src+')' }">
-                        <div class="delete-btn" @click='delete_img(item.id)'>
-                            <!-- <img src="./img/icon/delete.png"> -->
+                        :style="{ 'background-image': 'url('+item.src+')' }" @click='current_lunbo = item.id'>
+                        <div class="delete-btn" @click.stop='delete_img(item.id)'></div>
+                        <div class="font-setting-container">
+                            <div class="font-card" @click.stop=''>
+                                <div class="title">更改文字颜色</div>
+                                <div class="switch-btn" @click.stop='switch_color(item.id)'>
+                                    <div :class="['con', item.color=='light'?'on':'off']">
+                                        <div class="light">light</div>
+                                        <div class="circle"></div>
+                                        <div class="dark">dark</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="list-item" @click='click_select_file'
@@ -103,290 +131,18 @@
             </div>
         </div>
 
+        <!-- 设置图标 -->
         <div class="setting-btn" @click='switch_setting'>
             <img src="./img/icon/setting.png" alt="">
         </div>
 
+        <!-- 消息动画 -->
         <!-- <div class="show_msg animate">
             {{ msg }}
         </div> -->
     </div>
 
-    <script>
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                y: '0000',
-                m: '00',
-                d: '00',
-                h1: '0',
-                h2: '0',
-                m1: '0',
-                m2: '0',
-                s1: '0',
-                s2: '0',
-
-
-                style_h1: '',
-                style_h2: '',
-                style_m1: '',
-                style_m2: '',
-                style_s1: '',
-                style_s2: '',
-
-                interval: null,
-
-                lunbo: [],
-                current_lunbo: 0,
-                left: 0,
-                temp_left: "",
-                is_mobile: '',
-                words_color: "#fff",
-
-                // 触摸
-                touchStart_X: undefined,
-                touchMove_X: undefined,
-                touchEnd_X: undefined,
-                screenWidth: 0,
-                move_x: 0,
-
-                // 设置
-                show_setting: false,
-                file: '',
-            },
-            methods: {
-                switch_bg(id) {
-                    // console.log(id);
-                    this.current_lunbo = id;
-                    // this.move_x = 0;
-                    // if (id == 0 || id == 1 || id == 3)
-                    //     this.words_color = "#fff"
-                    // else
-                    //     this.words_color = "#000"
-                },
-                handleTouchStart(e) {
-                    // e.preventDefault();
-                    // console.log(`TOUCH_START: ${e.touches[0].clientX}`);
-                    this.touchStart_X = e.touches[0].clientX;
-                    this.temp_left = this.left
-                },
-                handleTouchMove(e) {
-                    // e.preventDefault();
-                    // console.log(`TOUCH_MOVE: ${e.touches[0].clientX}`);
-                    this.touchMove_X = e.touches[0].clientX;
-                    offset = this.touchMove_X - this.touchStart_X;
-
-                    // this.move_x = offset
-                    document.querySelector('.lunbo').style.transform = `translateX(${offset}px)`;
-                    // console.log(this.left);
-
-                },
-                handleTouchtouchend(e) {
-                    // console.log(`TOUCH_END: ${this.touchMove_X}`);
-                    offset = this.touchMove_X - this.touchStart_X;
-                    if (Math.abs(offset / this.screenWidth) > 0.2) {
-                        if (offset > 0) {
-                            // this.current_lunbo = this.current_lunbo - 1 < 0 ? 0 : this.current_lunbo - 1;
-                            let i = 0
-                            this.lunbo.forEach((item, index) => {
-                                if (this.current_lunbo == item.id) {
-                                    if (index - 1 > 0) i = index - 1
-                                    return false
-                                }
-                            });
-                            this.current_lunbo = this.lunbo[i]['id']
-                        } else if (offset < 0) {
-                            let i = this.lunbo.length - 1
-                            this.lunbo.forEach((item, index) => {
-                                if (this.current_lunbo == item.id) {
-                                    if (index + 1 < this.lunbo.length){
-                                        i = index + 1;
-                                    }
-                                    return false
-                                }
-                            });
-                            this.current_lunbo = this.lunbo[i]['id']
-
-                            // console.log(this.current_lunbo)
-                        }
-                    }
-                    // this.move_x = 0
-                    document.querySelector('.lunbo').style.transform = `translateX(0px)`;
-                },
-                updateLunboImg() {
-                    init_data = [
-                        { id: 0, src: "./img/a.jpg" },
-                        { id: 1, src: "./img/b.jpg" },
-                        { id: 2, src: "./img/c.jpg" },
-                        { id: 3, src: "./img/d.jpg" }
-                    ]
-                    // this.lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img') || init_data);
-                    if (localStorage.getItem('catsjuice_lunbo_img') && JSON.parse(localStorage.getItem('catsjuice_lunbo_img')).length > 0) {
-                        // console.log(localStorage.getItem('catsjuice_lunbo_img'))
-                        this.lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img'));
-
-                    } else {
-                        localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(init_data));
-                        this.updateLunboImg();
-                    }
-                },
-                switch_setting() {
-                    this.show_setting = !this.show_setting
-                },
-                delete_img(id) {
-                    localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(
-                        JSON.parse(localStorage.getItem('catsjuice_lunbo_img') || '[]').filter(item => item.id != id)
-                    ));
-                    this.updateLunboImg();
-                },
-                click_select_file() {
-                    this.$refs.file_select.click();
-                },
-                add_img(event) {
-                    // console.log(this.file)
-                    // this.updateLunboImg();
-                    this.file = event.target.files[0];
-                    // console.log(this.file)
-                    var formData = new FormData();
-                    formData.append('file', this.file);
-                    this.$http.post('https://catsjuice.cn/clock/api/upload.php', formData, {
-                        headers: { 'Content-Type': 'multipart/form-data' }
-                    })
-                        .then(function (res) {
-                            // document.write(res.body);
-                            console.log(res.body)
-                            if (res.body.img_receiver_result == 1) {
-                                window.alert('上传失败, 文件可能过大');
-                                return
-                            }
-                            let url = res.body.file_path;
-                            lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img'));
-                            new_item = {
-                                id: `${Date.now()}_${Math.ceil(Math.random() * 1000)}`,
-                                src: url
-                            }
-                            lunbo.push(new_item);
-                            localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(lunbo));
-
-                            if (res.body.status === 0) {
-                                // window.alert('上传成功');
-                                // setTimeout( () => { this.updateLunboImg()}, 2000);
-                                this.updateLunboImg();
-                            } else {
-                                window.alert('上传失败');
-                            }
-
-                        }, function (res) {
-                            console.log(res.status);
-                        });
-
-                    // lunbo = JSON.parse(localStorage.getItem('catsjuice_lunbo_img'));
-                    // new_item = {
-                    //     id: `${Date.now()}_${Math.random}`,
-                    //     src: this.file
-                    // }
-                    // lunbo.push(new_item);
-                    // localStorage.setItem('catsjuice_lunbo_img', JSON.stringify(lunbo));
-                    // this.updateLunboImg();
-                }
-            },
-            mounted() {
-                this.intervalL = setInterval(() => {
-                    datetime = new Date();
-                    this.y = datetime.getFullYear();
-                    this.m = (datetime.getMonth() + 1).toString().padStart(2, "0");
-                    this.d = datetime.getDate().toString().padStart(2, "0");
-                    var hh = datetime.getHours().toString().padStart(2, "0");
-                    var mm = datetime.getMinutes().toString().padStart(2, "0");
-                    var ss = datetime.getSeconds().toString().padStart(2, "0");
-
-                    // this.last_h1 = this.h1
-                    // this.last_h2 = this.h2
-                    // this.last_m1 = this.m1
-                    // this.last_m2 = this.m2
-                    // this.last_s1 = this.s1
-                    // this.last_s2 = this.s2
-                    // console.log(`${hh}:${mm}:${ss}`)
-                    if (this.h1 != hh.substring(0, 1)) {
-                        this.style_h1 = 'active';
-                        this.h1 = hh.substring(0, 1);
-                        setTimeout(() => { this.style_h1 = '' }, 800);
-                    }
-                    if (this.h2 != hh.substring(1)) {
-                        this.style_h2 = 'active';
-                        this.h2 = hh.substring(1);
-                        setTimeout(() => { this.style_h2 = '' }, 800);
-                    }
-                    if (this.m1 != mm.substring(0, 1)) {
-                        this.style_m1 = 'active';
-                        this.m1 = mm.substring(0, 1);
-                        setTimeout(() => { this.style_m1 = '' }, 800);
-                    }
-                    if (this.m2 != mm.substring(1)) {
-                        this.style_m2 = 'active';
-                        this.m2 = mm.substring(1);
-                        setTimeout(() => { this.style_m2 = '' }, 800);
-                    }
-                    if (this.s1 != ss.substring(0, 1)) {
-                        this.style_s1 = 'active';
-                        this.s1 = ss.substring(0, 1);
-                        setTimeout(() => { this.style_s1 = '' }, 800);
-                    }
-                    this.style_s2 = 'active';
-                    this.s2 = ss.substring(1);
-                    setTimeout(() => { this.style_s2 = '' }, 800);
-
-                    // console.log(`${this.h1}${this.h2}:${this.m1}${this.m2}:${this.s1}${this.s2}`)
-
-                }, 1000)
-                this.left = this.current_lunbo * 100 == 0 ? "0" : this.current_lunbo * -100;
-                // console.log(navigator.userAgent)
-                ua = navigator.userAgent;
-                mobile = ["iPhone", "iPod", "Android"];
-                this.is_mobile = mobile.some(item => ua.indexOf(item) > -1);
-
-                // 
-                //var target = document.querySelector(".lunbo");
-                window.addEventListener('touchstart', this.handleTouchStart, { passive: false });
-                window.addEventListener('touchmove', this.handleTouchMove, { passive: false });
-                window.addEventListener('touchend', this.handleTouchtouchend, { passive: false });
-
-                // 
-                window.onresize = () => {
-                    return (() => {
-                        this.screenWidth = document.body.clientWidth
-                    })()
-                }
-                this.screenWidth = document.body.clientWidth;
-                this.updateLunboImg();
-            },
-            watch: {
-                current_lunbo(id) {
-                    this.lunbo.forEach((item, index) => {
-                        if (item.id == id)
-                            this.left = index * -100
-                        // this.left = this.current_lunbo * 100 == 0 ? "0" : this.current_lunbo * -100;
-                    })
-
-                },
-                show_setting(flag) {
-                    if (flag) {
-                        this.$refs.main.style.top = '30vh'
-                        window.removeEventListener('touchstart', this.handleTouchStart);
-                        window.removeEventListener('touchmove', this.handleTouchMove);
-                        window.removeEventListener('touchend', this.handleTouchtouchend);
-                    }
-                    else {
-                        this.$refs.main.style.top = '50vh'
-                        window.addEventListener('touchstart', this.handleTouchStart, { passive: false });
-                        window.addEventListener('touchmove', this.handleTouchMove, { passive: false });
-                        window.addEventListener('touchend', this.handleTouchtouchend, { passive: false });
-
-                    }
-                }
-            }
-        })
-    </script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>

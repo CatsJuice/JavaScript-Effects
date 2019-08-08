@@ -96,6 +96,7 @@
 }
 
 .words {
+    width: 100%;
     position: absolute;
     top: 110%;
     font-family: sans-serif;
@@ -104,6 +105,7 @@
     font-weight: 100;
     text-align: center;
     transition: all 0.8s ease-in-out;
+    /* background: pink; */
 }
 
 .mobile-card {
