@@ -30,3 +30,9 @@
 
 ## 移动端设置
 ![移动端添加图片](https://github.com/CatsJuice/JavaScript-Effects/blob/master/clcok-effect/gif-preview/mobile_setting.gif)
+
+## 搜索框
+![搜索框](https://github.com/CatsJuice/JavaScript-Effects/blob/master/clcok-effect/gif-preview/search.gif)
+
+## 字体颜色更改
+![字体颜色更改](https://github.com/CatsJuice/JavaScript-Effects/blob/master/clcok-effect/gif-preview/font_color_setting.gif)
