@@ -143,14 +143,14 @@ const vm = new Vue({
             // console.log(this.file)
             var formData = new FormData();
             formData.append('file', this.file);
-            this.$http.post('https://catsjuice.cn/clock/api/upload.php', formData, {
+            this.$http.post('http://clock.catsjuice.cn/api/upload.php', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             })
                 .then(function (res) {
                     // document.write(res.body);
                     console.log(res.body)
-                    if (res.body.img_receiver_result == 1) {
-                        window.alert('上传失败, 文件可能过大');
+                    if (res.body.status != 0) {
+                        window.alert('上传失败, 文件可能过大(超过 2MB)');
                         return
                     }
                     let url = res.body.file_path;

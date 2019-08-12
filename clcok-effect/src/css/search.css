@@ -15,6 +15,7 @@
     background-color: #fff;
     margin-left: 50%;
     transform: translateX(-50%);
+    position: relative;
     overflow: hidden;
     width: 40px;
     transition: all 0.4s ease-in-out;
@@ -29,6 +30,7 @@
     line-height: 50px;
     text-align: center;
     /* background-color: aqua; */
+    background: none;
     position: absolute;
     left: 5%;
     font-size: 1rem;
@@ -58,7 +60,7 @@
     transform: translateX(0);
     transition: all 0.5s ease-in-out;
 }
-.search .btn:hover {
+.search:hover .btn {
     transition: all 0.2s ease-in-out;
     background-color: salmon;
     background-image: url(../img/icon/search_light.png);
