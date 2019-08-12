@@ -6,7 +6,7 @@
 
 项目在线预览:
 
-> [clock.catsjuice.cn](clock.catsjuice.cn)
+> [clock.catsjuice.cn](http://clock.catsjuice.cn)
 
 或者
 
