@@ -18,10 +18,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+var session = require('express-session');
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+
 // 路由
 app.all('*', function (req, res, next) {
 
-  res.header("Access-Control-Allow-Origin", "http://localhost:9990");
+  if (req.headers.origin == 'http://localhost:8080'
+    || req.headers.origin == 'http://clock.catsjuice.cn') {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+  }
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "Content-type");
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
@@ -36,13 +47,16 @@ app.use('/', require('./routes/index'));
 /** 用户体系 */
 app.use('/user/', require('./routes/user'));
 
+/** galary */
+app.use('/galary/', require('./routes/galary'));
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

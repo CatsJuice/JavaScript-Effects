@@ -9,15 +9,19 @@
         @someSwiperEvent="callback"
       >
         <!-- slides -->
-        <swiper-slide style="background-color: #2980B9">I'm Slide 1</swiper-slide>
-        <swiper-slide style="background-color: #52BE80">I'm Slide 2</swiper-slide>
-        <swiper-slide style="background-color: #F4D03F">I'm Slide 3</swiper-slide>
-        <swiper-slide style="background-color: #AAB7B8">I'm Slide 4</swiper-slide>
-        <swiper-slide style="background-color: #CD6155">I'm Slide 5</swiper-slide>
-        <swiper-slide style="background-color: #34495E">I'm Slide 6</swiper-slide>
-        <swiper-slide style="background-color: #2980B9">I'm Slide 7</swiper-slide>
+        <swiper-slide
+          v-for="img in imgs"
+          :key="img.galary_id"
+          :style="`
+          background-color: #AEB6BF;
+          background-image: url('${$server_root}/images/bgs/${img.pic_name}');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+        `"
+        ></swiper-slide>
         <!-- Optional controls -->
-        <div class="swiper-pagination" slot="pagination"></div>
+        <div class="swiper-pagination" slot="pagination" v-show="showAll"></div>
         <!-- <div class="swiper-button-prev" slot="button-prev"></div> -->
         <!-- <div class="swiper-button-next" slot="button-next"></div> -->
         <!-- <div class="swiper-scrollbar" slot="scrollbar"></div> -->
@@ -25,8 +29,8 @@
     </div>
 
     <!-- 设置面板 -->
-    <input id="switch-btn-ckbox" type="checkbox" v-model="showSettingPanel" />
-    <div class="switch-btn">
+    <input id="switch-btn-ckbox" type="checkbox" v-model="showSettingPanel" v-show="showAll" />
+    <div class="switch-btn" v-show="showAll">
       <div>
         <span></span>
         <span></span>
@@ -42,7 +46,7 @@
     </div>
 
     <!-- 时钟容器 -->
-    <div class="clock-container">
+    <div class="clock-container" @dblclick="toggleAllTools">
       <flip-clock :options="options" />
     </div>
   </div>
@@ -51,7 +55,7 @@
 <script>
 // @ is an alias to /src
 import { FlipClock } from "@mvpleung/flipclock";
-import SettingPanel from "./SettingPanel"
+import SettingPanel from "./SettingPanel";
 
 import clockMixin from "./mixins/clock";
 import bgMixin from "./mixins/bg";
@@ -61,16 +65,25 @@ export default {
   name: "home",
   components: {
     FlipClock,
-    SettingPanel,
+    SettingPanel
   },
   data() {
     return {
       options: {
         clockFace: "TwentyFourHourClock"
-      }
+      },
+      showAll: true
     };
   },
-  mixins: [clockMixin, bgMixin, configMixin]
+  mixins: [clockMixin, bgMixin, configMixin],
+  methods: {
+    toggleAllTools() {
+      this.showAll = !this.showAll
+      if (!this.showAll) {
+        this.showSettingPanel = false
+      }
+    }
+  }
 };
 </script>
 
@@ -82,6 +95,7 @@ export default {
   height: 100%;
   overflow: hidden;
   position: relative;
+  background-color: #566573;
 
   .clock-container {
     transform: scale(1);
@@ -134,8 +148,8 @@ export default {
   .switch-btn,
   #switch-btn-ckbox {
     position: fixed;
-    right: 10px;
-    top: 10px;
+    right: 20px;
+    top: 20px;
     width: 44px;
     height: 44px;
     border: none;
@@ -216,15 +230,19 @@ export default {
 
   .setting-panel {
     width: 350px;
-    // height: calc(100% - 10px);
-    height: 100%;
+    margin-top: 10px;
+    margin-right: 10px;
+    height: calc(100% - 20px);
+    // height: 100%;
     background-color: #fff;
+    border-radius: 5px;
     position: fixed;
     z-index: 3332;
     top: 0;
     transition: all 0.3s ease-in-out;
     right: -400px;
     box-shadow: -5px 0px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
   }
 }
 </style>

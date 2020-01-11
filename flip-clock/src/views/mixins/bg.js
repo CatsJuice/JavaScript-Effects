@@ -20,6 +20,18 @@ export default {
     computed: {
         swiper() {
             return this.$refs.mySwiper.swiper
+        },
+        activePageIndex() {
+            return this.$store.state.activePageIndex
+        },
+        imgs() {
+            const { publicList, privateList } = this.$store.state
+            return publicList.concat(privateList)
+        }
+    },
+    watch: {
+        activePageIndex(index) {
+            this.swiper.slideTo(index, 1000, false)
         }
     },
     methods: {
@@ -28,7 +40,6 @@ export default {
         }
     },
     mounted() {
-        console.log('this is current swiper instance object', this.swiper)
-        this.swiper.slideTo(3, 1000, false)
+
     }
 }

@@ -1,13 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var query_async = require('../db');
-var session = require('express-session');
-
-router.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-}));
 
 router.get("/signin", async (req, res) => {
     const { username, password } = req.query

@@ -15,9 +15,15 @@ body,html {
 * {
   box-sizing: border-box;
 }
+.el-notification {
+  z-index: 9999999 !important;
+}
 #app {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+.zIndex9999 {
+  z-index: 9999;
 }
 </style>
