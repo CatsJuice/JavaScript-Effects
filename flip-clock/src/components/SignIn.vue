@@ -55,7 +55,6 @@ export default {
         username: this.username,
         password: this.password
       };
-
       this.$axios({
         method: "get",
         url: `${this.$server_root}/user/signin`,
@@ -73,6 +72,8 @@ export default {
             customClass: "zIndex9999"
           });
         }
+      }).catch( err => {
+          console.log(err)
       });
     },
 

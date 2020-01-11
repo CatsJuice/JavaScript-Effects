@@ -17,8 +17,8 @@ Vue.prototype.$axios = axios;
 // Vue.use(VueAxios, axios);
 
 
-Vue.prototype.$server_root = "http://localhost:3003"
-// Vue.prototype.$server_root = "http://clock.catsjuice.cn"
+// Vue.prototype.$server_root = "http://localhost:3003"
+Vue.prototype.$server_root = "http://clock.catsjuice.cn"
 
 /**
  * Element
