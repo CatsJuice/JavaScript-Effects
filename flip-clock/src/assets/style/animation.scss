@@ -1,0 +1,35 @@
+.blurIn {
+    animation: blurIn 0.5s ease 0s 1 normal forwards;
+  }
+  @keyframes blurIn {
+    from {
+      backdrop-filter: blur(0px);
+      opacity: 0;
+      width: 150%;
+      height: 150%;
+    }
+    to {
+      backdrop-filter: blur(12px);
+      opacity: 1;
+      width: 120%;
+      height: 120%;
+    }
+  }
+  
+  .blurOut {
+    animation: blurOut 0.5s ease 0s 1 normal forwards;
+  }
+  @keyframes blurOut {
+    from {
+      backdrop-filter: blur(12px);
+      opacity: 1;
+      width: 120%;
+      height: 120%;
+    }
+    to {
+      backdrop-filter: blur(0px);
+      opacity: 0;
+      width: 150%;
+      height: 150%;
+    }
+  }

@@ -759,6 +759,11 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@mvpleung/flipclock@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@mvpleung/flipclock/-/flipclock-0.0.6.tgz#3a65b57f877292da4149de32ecc3935f9031f1ef"
+  integrity sha512-R4DDzhFqWaC82HlMjNjGxY0fPWiWTtZzwacl1OitXTxG+dTHGfBSzP0AbPEIvZXI9um+Y/IIg+s7PTnAyZLlKA==
+
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
   resolved "https://registry.npm.taobao.org/@nodelib/fs.stat/download/@nodelib/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
@@ -1351,7 +1356,7 @@ arr-union@^3.1.0:
   resolved "https://registry.npm.taobao.org/arr-union/download/arr-union-3.1.0.tgz#e39b09aea9def866a8f206e288af63919bae39c4"
   integrity sha1-45sJrqne+Gao8gbiiK9jkZuuOcQ=
 
-array-find-index@^1.0.1:
+array-find-index@^1.0.1, array-find-index@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/array-find-index/download/array-find-index-1.0.2.tgz#df010aa1287e164bbda6f9723b0a96a1ec4187a1"
   integrity sha1-3wEKoSh+Fku9pvlyOwqWoexBh6E=
@@ -2788,6 +2793,13 @@ dom-serializer@0:
     domelementtype "^2.0.1"
     entities "^2.0.0"
 
+dom7@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/dom7/-/dom7-2.1.3.tgz#a736f9c3bfbc4ca039a81cd095f97d1d7f3de19c"
+  integrity sha512-QTxHHDox+M6ZFz1zHPAHZKI3JOHY5iY4i9BK2uctlggxKQwRhO3q3HHFq1BKsT25Bm/ySSj70K6Wk/G4bs9rMQ==
+  dependencies:
+    ssr-window "^1.0.1"
+
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/domain-browser/download/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -2991,6 +3003,11 @@ es-to-primitive@^1.2.1:
     is-callable "^1.1.4"
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
+
+es6-promise@^3.1.2:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
+  integrity sha1-oIzd6EzNvzTQJ6FFG8kdS80ophM=
 
 escape-html@~1.0.3:
   version "1.0.3"
@@ -4914,6 +4931,22 @@ minipass@^3.0.0, minipass@^3.1.1:
   dependencies:
     yallist "^4.0.0"
 
+mint-ui@1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/mint-ui/-/mint-ui-1.0.2.tgz#168318925c59a7da4c3f8ec6d9960e138e55fefc"
+  integrity sha1-FoMYklxZp9pMP47G2ZYOE45V/vw=
+  dependencies:
+    array-find-index "^1.0.2"
+    raf.js "0.0.4"
+    vue-clickoutside "^0.2.0"
+    vue-infinite-scroll "^0.2.3"
+    vue-lazyload "^0.7.1"
+    vue-msgbox "^0.2.14"
+    vue-popup "0.1.13"
+    vue-swipe "^0.2.7"
+    vue-toast-mobile "^0.1.3"
+    wind-dom "0.0.3"
+
 mississippi@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/mississippi/download/mississippi-3.0.0.tgz#ea0a3291f97e0b5e8776b363d5f0a12d94c67022"
@@ -6203,6 +6236,11 @@ querystringify@^2.1.1:
   resolved "https://registry.npm.taobao.org/querystringify/download/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha1-YOWl/WSn+L+k0qsu1v30yFutFU4=
 
+raf.js@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/raf.js/-/raf.js-0.0.4.tgz#f15af445d241b27fa7131a57450b67ef9c402fec"
+  integrity sha1-8Vr0RdJBsn+nExpXRQtn75xAL+w=
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/randombytes/download/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -6964,6 +7002,11 @@ sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
+ssr-window@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-1.0.1.tgz#30752a6a4666e7767f0b7e6aa6fc2fdbd0d9b369"
+  integrity sha512-dgFqB+f00LJTEgb6UXhx0h+SrG50LJvti2yMKMqAgzfUmUXZrLSv2fjULF7AWGwK25EXu8+smLR3jYsJQChPsg==
+
 ssri@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npm.taobao.org/ssri/download/ssri-6.0.1.tgz#2a3c41b28dd45b62b63676ecb74001265ae9edd8"
@@ -7226,6 +7269,14 @@ svgo@^1.0.0:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+swiper@^4.0.7:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-4.5.1.tgz#ed43998e780ceb478610079c8d23fd425eca636f"
+  integrity sha512-se6I7PWWu950NAMXXT+ENtF/6SVb8mPyO+bTfNxbQBILSeLqsYp3Ndap+YOA0EczOIUlea274PKejT6gKZDseA==
+  dependencies:
+    dom7 "^2.1.3"
+    ssr-window "^1.0.1"
 
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"
@@ -7667,10 +7718,35 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz?cache=0&sync_timestamp=1572870776965&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvm-browserify%2Fdownload%2Fvm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
 
+vue-awesome-swiper@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/vue-awesome-swiper/-/vue-awesome-swiper-3.1.3.tgz#05500b501ffb3fec9bf7eb9985bcf4ae8360ed9e"
+  integrity sha512-E7suzkyApO8vNZbgdEnjSmnpsmQZyRvSVXJ7sey3XYwKPOkLhH3+GnHroBw+5PZIQXvWBwdCeQsPG1xQ1r1Rhg==
+  dependencies:
+    object-assign "^4.1.1"
+    swiper "^4.0.7"
+
+vue-clickoutside@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/vue-clickoutside/-/vue-clickoutside-0.2.0.tgz#a0f16840dd4f29f019bd09d07247c99a581e48e3"
+  integrity sha1-oPFoQN1PKfAZvQnQckfJmlgeSOM=
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha1-UylVzB6yCKPZkLOp+acFdGV+CPI=
+
+vue-infinite-scroll@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/vue-infinite-scroll/-/vue-infinite-scroll-0.2.3.tgz#9eb9fa1972e363e69a572edb66a7a06f5ff8dc42"
+  integrity sha1-nrn6GXLjY+aaVy7bZqegb1/43EI=
+
+vue-lazyload@^0.7.1:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-0.7.5.tgz#585787eeaf256e764620ad47d2a3eac4301d2da3"
+  integrity sha1-WFeH7q8lbnZGIK1H0qPqxDAdLaM=
+  dependencies:
+    es6-promise "^3.1.2"
 
 vue-loader@^15.7.2:
   version "15.8.3"
@@ -7682,6 +7758,18 @@ vue-loader@^15.7.2:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-msgbox@^0.2.14:
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/vue-msgbox/-/vue-msgbox-0.2.14.tgz#daf027faf2eeca798de3248e85ae802c87c38540"
+  integrity sha1-2vAn+vLuynmN4ySOha6ALIfDhUA=
+  dependencies:
+    vue-popup "^0.1.13"
+
+vue-popup@0.1.13, vue-popup@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/vue-popup/-/vue-popup-0.1.13.tgz#fc03251ec17751b520c79c41ad4c69f8889833db"
+  integrity sha1-/AMlHsF3UbUgx5xBrUxp+IiYM9s=
 
 vue-router@^3.1.3:
   version "3.1.3"
@@ -7696,6 +7784,13 @@ vue-style-loader@^4.1.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
+vue-swipe@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/vue-swipe/-/vue-swipe-0.2.7.tgz#4c23ee982953a2c7e96dace55b1fafde518ab719"
+  integrity sha1-TCPumClTosfpbazlWx+v3lGKtxk=
+  dependencies:
+    wind-dom "0.0.3"
+
 vue-template-compiler@^2.6.10:
   version "2.6.11"
   resolved "https://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.6.11.tgz#c04704ef8f498b153130018993e56309d4698080"
@@ -7708,6 +7803,11 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
+
+vue-toast-mobile@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/vue-toast-mobile/-/vue-toast-mobile-0.1.3.tgz#ab683c3ac5af69da8f399b048f692a0f78b03a6f"
+  integrity sha1-q2g8OsWvadqPOZsEj2kqD3iwOm8=
 
 vue@^2.6.10:
   version "2.6.11"
@@ -7915,6 +8015,11 @@ wide-align@^1.1.0:
   integrity sha1-rgdOa9wMFKQx6ATmJFScYzsABFc=
   dependencies:
     string-width "^1.0.2 || 2"
+
+wind-dom@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/wind-dom/-/wind-dom-0.0.3.tgz#3456e3d959dbebdcbf76ca68c6a4e8142f26360f"
+  integrity sha1-NFbj2Vnb69y/dspoxqToFC8mNg8=
 
 wordwrap@~0.0.2:
   version "0.0.3"
